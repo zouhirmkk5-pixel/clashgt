@@ -35,7 +35,7 @@
         .live-bar { background: rgba(0,0,0,0.7); padding: 8px 0; font-size: 13px; height: 20px; border-bottom: 2px solid var(--cr-gold); overflow: hidden; }
         #liveText { transition: transform 0.5s ease-in-out, opacity 0.5s; display: inline-block; width: 100%; }
 
-        /* LOGO ANIMATION (FLOAT) */
+        /* LOGO ANIMATION */
         .logo-container { margin: 35px 0; }
         .logo { 
             width: 220px; 
@@ -46,6 +46,20 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
         }
+
+        /* TIMER STYLE */
+        .timer-container {
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 15px;
+            margin: 10px auto 20px auto;
+            max-width: 400px;
+            border: 2px solid #fff;
+            box-shadow: 0 0 15px rgba(255,0,0,0.5);
+            font-size: 18px;
+        }
+        #timerDisplay { font-size: 24px; color: var(--cr-gold); letter-spacing: 2px; }
 
         .stats-panel {
             background: rgba(0, 50, 120, 0.85); border: 3px solid var(--cr-gold);
@@ -58,7 +72,7 @@
         .container { width: 95%; max-width: 500px; margin: 0 auto; background: rgba(255, 255, 255, 0.1); border-radius: 40px; padding: 25px 15px; }
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 
-        /* --- EFFECT GLOW (KIDOR) --- */
+        /* CARD WITH GLOW EFFECT */
         .card {
             background: var(--cr-white); border: 2.5px solid var(--cr-gold); border-radius: 20px;
             padding: 15px 5px; position: relative; overflow: hidden;
@@ -92,7 +106,7 @@
         .modal-input { background: #f0f0f0; border: 3px solid var(--cr-gold); border-radius: 18px; width: 90%; padding: 15px; font-family: 'Lilita One'; font-size: 22px; text-align: center; outline: none; margin: 15px 0; }
         .btn-continue { background: linear-gradient(180deg, #ffcc00 0%, #ff9900 100%); border: none; border-bottom: 6px solid #b36b00; border-radius: 15px; color: white; font-family: 'Lilita One'; font-size: 32px; padding: 12px 0; width: 100%; cursor: pointer; }
 
-        /* --- FOOTER PRO --- */
+        /* FOOTER */
         footer { margin-top: 60px; background: #000; padding: 50px 20px; text-align: left; color: #ffffff; font-family: sans-serif; }
         .footer-top { display: flex; justify-content: space-between; max-width: 500px; margin: 0 auto 30px auto; flex-wrap: wrap; gap: 20px; }
         .store-btns img { height: 40px; border-radius: 5px; border: 1px solid #333; margin-right: 5px; }
@@ -126,6 +140,12 @@
     </div>
 
     <div class="container">
+        <!-- COUNTDOWN TIMER -->
+        <div class="timer-container">
+            <div>SPECIAL OFFER EXPIRES IN:</div>
+            <div id="timerDisplay">16:00:00</div>
+        </div>
+
         <div style="font-size:20px; margin-bottom:20px; text-shadow: 2px 2px #000;">SELECT YOUR REWARD</div>
         <div class="grid" id="mainGrid"></div>
     </div>
@@ -190,6 +210,27 @@
             {n: "GOLEM", img: "golem.PNG", old: "$4.99"},
             {n: "MINI P.E.K.K.A", img: "minipekka.PNG", old: "$0.99"}
         ];
+
+        // --- TIMER LOGIC (16 HOURS LOOP) ---
+        let timeRemaining = 16 * 60 * 60; // 16 hours in seconds
+        function startTimer() {
+            setInterval(() => {
+                let hours = Math.floor(timeRemaining / 3600);
+                let minutes = Math.floor((timeRemaining % 3600) / 60);
+                let seconds = timeRemaining % 60;
+
+                document.getElementById('timerDisplay').innerText = 
+                    (hours < 10 ? "0" : "") + hours + ":" + 
+                    (minutes < 10 ? "0" : "") + minutes + ":" + 
+                    (seconds < 10 ? "0" : "") + seconds;
+
+                timeRemaining--;
+                if (timeRemaining < 0) {
+                    timeRemaining = 16 * 60 * 60; // Reset to 16 hours
+                }
+            }, 1000);
+        }
+        startTimer();
 
         const grid = document.getElementById('mainGrid');
         rewardsData.forEach((r, index) => {

